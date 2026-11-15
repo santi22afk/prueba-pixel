@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gracias por registrarte</title>
+
+<!-- Píxel de Meta (conjunto de datos "Santigod"): dispara PageView en la página de gracias -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '4564424503771563');
+fbq('track', 'PageView');
+// Lead y LeadCalificado se disparan desde el botón de la landing (por la pregunta de calificación).
+// Por eso acá NO se define Lead por URL: si no, Meta contaría cada registro dos veces.
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+src="https://www.facebook.com/tr?id=4564424503771563&ev=PageView&noscript=1"></noscript>
+
+<style>
+  :root { --bg:#0f1115; --card:#181b22; --text:#f2f3f5; --muted:#9aa1ad; --accent:#3ccf7a; --line:#2a2f3a; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; line-height:1.5; }
+  main { max-width:560px; margin:0 auto; padding:64px 16px; text-align:center; }
+  .check { width:64px; height:64px; border-radius:50%; background:var(--accent); color:#0f1115; font-size:34px; font-weight:800; display:grid; place-items:center; margin:0 auto 24px; }
+  h1 { font-size:clamp(26px,6vw,36px); line-height:1.15; margin-bottom:12px; }
+  p { color:var(--muted); font-size:17px; margin-bottom:28px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px; text-align:left; font-size:15px; color:var(--muted); }
+  .card strong { color:var(--text); }
+  a { color:var(--accent); }
+</style>
+</head>
+<body>
+  <main>
+    <div class="check">✓</div>
+    <h1>¡Listo, estás registrado!</h1>
+    <p>Esta es la página de gracias de prueba. Cada vez que alguien llega acá, el píxel lo cuenta como registro.</p>
+    <div class="card">
+      <strong>Para revisar:</strong> en el Administrador de Eventos, dentro de Santigod, tienen que aparecer los PageView, un Lead por cada registro y un LeadCalificado solo cuando la facturación elegida fue de USD 1.000 o más.
+    </div>
+    <p style="margin-top:28px"><a href="index.html">Volver a la landing</a></p>
+  </main>
+</body>
+</html>

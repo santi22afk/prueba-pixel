@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Masterclass de prueba</title>
+
+<!-- Píxel de Meta (conjunto de datos "Santigod"): dispara PageView en la landing -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '4564424503771563');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+src="https://www.facebook.com/tr?id=4564424503771563&ev=PageView&noscript=1"></noscript>
+
+<style>
+  :root { --bg:#0f1115; --card:#181b22; --text:#f2f3f5; --muted:#9aa1ad; --accent:#ff6a2b; --line:#2a2f3a; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; line-height:1.5; }
+  .aviso { background:#2b2210; color:#ffcf7a; font-size:13px; text-align:center; padding:8px 16px; }
+  main { max-width:560px; margin:0 auto; padding:48px 16px 64px; }
+  .tag { display:inline-block; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:4px 12px; margin-bottom:20px; }
+  h1 { font-size:clamp(28px,6vw,40px); line-height:1.15; margin-bottom:16px; }
+  .sub { color:var(--muted); font-size:17px; margin-bottom:32px; }
+  form { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:24px; display:grid; gap:14px; }
+  label { font-size:14px; color:var(--muted); display:grid; gap:6px; }
+  input, select { font:inherit; color:var(--text); background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  input:focus { outline:2px solid var(--accent); outline-offset:1px; }
+  button { font:inherit; font-weight:700; font-size:17px; color:#fff; background:var(--accent); border:0; border-radius:10px; padding:14px; cursor:pointer; margin-top:6px; }
+  button:hover { filter:brightness(1.08); }
+  .legal { font-size:12px; color:var(--muted); text-align:center; }
+</style>
+</head>
+<body>
+  <div class="aviso">Página de prueba del píxel: el formulario no guarda ni envía ningún dato.</div>
+  <main>
+    <span class="tag">Masterclass gratis y en vivo</span>
+    <h1>Esta es una landing de prueba para el evento de registro</h1>
+    <p class="sub">Completá el formulario con datos inventados. Al tocar el botón vas a la página de gracias, que es donde se cuenta el registro.</p>
+
+    <form id="registro">
+      <label>Nombre <input name="nombre" required autocomplete="off"></label>
+      <label>Email <input name="email" type="email" required autocomplete="off"></label>
+      <label>WhatsApp <input name="whatsapp" type="tel" required autocomplete="off"></label>
+      <label>¿Cuánto está facturando tu negocio por mes? (pregunta de ejemplo)
+        <select name="facturacion" required>
+          <option value="" disabled selected>Elegí una opción</option>
+          <option value="0">Menos de USD 1.000</option>
+          <option value="1000">Entre USD 1.000 y 5.000</option>
+          <option value="5000">Más de USD 5.000</option>
+        </select>
+      </label>
+      <button type="submit">Quiero mi lugar</button>
+      <p class="legal">Prueba interna. Usá datos falsos.</p>
+    </form>
+  </main>
+
+<script>
+  // No manda los datos a ningún lado: solo dispara los eventos del píxel y redirige a la página de gracias.
+  // Calificado = factura USD 1.000 o más. El "value" es el piso del rango elegido (como en la landing de Limitless).
+  var MINIMO_CALIFICADO = 1000;
+
+  document.getElementById('registro').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var piso = Number(this.facturacion.value);
+
+    // Todos los registros: Lead (para el costo por lead).
+    fbq('track', 'Lead', { value: piso, currency: 'USD' });
+
+    // Solo los calificados: LeadCalificado (para el costo por lead calificado).
+    if (piso >= MINIMO_CALIFICADO) {
+      fbq('trackCustom', 'LeadCalificado', { value: piso, currency: 'USD' });
+    }
+
+    // Medio segundo para que el píxel termine de mandar los eventos antes de cambiar de página.
+    setTimeout(function () { window.location.href = 'gracias.html'; }, 500);
+  });
+</script>
+</body>
+</html>
